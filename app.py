@@ -17,7 +17,7 @@ def scrap(field,Location,Experience):
     chrome_options.add_argument('headless')
     
     driver = webdriver.Chrome(executable_path=os.environ.get('CHROMEDRIVER_PATH'), chrome_options=chrome_options)
-    url1='https://www.timesjobs.com/candidate/job-search.html?searchType=personalizedSearch&from=submit&txtKeywords='+field+'&txtLocation='+Location+'&cboWorkExp1='+Experience
+    url1='https://www.timesjobs.com/candidate/job-search.html?searchType=personalizedSearch&from=submit&txtKeywords='+field+'&txtLocation='+Location+'&cboWorkExp1='+str(Experience)
 
     from selenium import webdriver
 
@@ -47,11 +47,7 @@ def scrap(field,Location,Experience):
         time.sleep(3)
         title=driver.find_element_by_xpath('//*[@id="job-detail-main-container"]/div[1]/div[2]/h1').text
         comp=driver.find_element_by_xpath('//*[@id="job-detail-main-container"]/div[1]/div[2]/h2').text
-        #exp=driver.find_element_by_xpath('//*[@id="job-detail-main-container"]/div[1]/div[2]/ul[1]/li[1]').text
-        #location=driver.find_element_by_xpath('//*[@id="job-detail-main-container"]/div[1]/div[2]/ul[1]/li[3]').text
-        #pay=driver.find_element_by_xpath('//*[@id="job-detail-main-container"]/div[1]/div[2]/ul[1]/li[2]').text
-        #qualification=driver.find_element_by_xpath('//*[@id="applyFlowHideDetails_1"]/li[4]/span/ul').text
-        #industry=driver.find_element_by_xpath('//*[@id="applyFlowHideDetails_1"]/li[2]/span').text
+        
         tempj={'job_title':title,
                'company':comp,
           'link for more details':link}
@@ -62,10 +58,7 @@ def scrap(field,Location,Experience):
     data=pd.DataFrame(alldetails)
 
 
-    # In[6]:
-
-
-    urln='https://www.naukri.com/'+field+'-jobs-in-'+Location+'?k='+field+'&l='+Location+'experience='+Experience
+    urln='https://www.naukri.com/'+field+'-jobs-in-'+Location+'?k='+field+'&l='+Location+'experience='+str(Experience)
     from selenium import webdriver
     driver.get(urln)
     listoflinksn=[]
@@ -98,10 +91,10 @@ def scrap(field,Location,Experience):
         detnau.append(tempj)
 
 
-    len(detnau)
+ 
 
     datanau=pd.DataFrame(detnau)
-    datanau
+  
 
 
     # In[7]:
@@ -110,7 +103,7 @@ def scrap(field,Location,Experience):
     # monster
 
 
-    urlm='https://www.monsterindia.com/srp/results?query='+field+'&locations='+Location+'&experienceRanges='+Experience+'~'+Experience+'&experience='+Experience+'&searchId=81e909fa-3756-40af-be64-538c1eade7e1'
+    urlm='https://www.monsterindia.com/srp/results?query='+field+'&locations='+Location+'&experienceRanges='+str(Experience)+'~'+str(Experience)+'&experience='+str(Experience)+'&searchId=81e909fa-3756-40af-be64-538c1eade7e1'
 
 
     driver.get(urlm)
@@ -148,7 +141,7 @@ def scrap(field,Location,Experience):
         
 
     data1=pd.DataFrame(det)
-    data1
+    
 
 
     # In[8]:
@@ -186,7 +179,7 @@ def scrap(field,Location,Experience):
         detin.append(tempj)
 
     datain=pd.DataFrame(detin)
-    datain
+    
 
 
     # # shine
@@ -228,7 +221,6 @@ def scrap(field,Location,Experience):
         shdet.append(tempj)
 
     datash=pd.DataFrame(shdet)
-    datash
 
 
     # In[14]:
@@ -265,7 +257,7 @@ def scrap(field,Location,Experience):
 
 
     datalin=pd.DataFrame(detlin)
-    datalin
+    
 
 
     # # total data
@@ -274,7 +266,7 @@ def scrap(field,Location,Experience):
 
 
     tdata=pd.concat([data,datanau,data1,datain,datash,datalin])
-    tdata
+    
 
     return tdata
 
@@ -290,6 +282,6 @@ def submit():
     Location=request.form['Location']
     output=scrap(field,Experience,Location)
     
-    return render_template('index.html', prediction_text='job details{}'.format(output))
+    return render_template('index.html',prediction_text=output))
 if __name__ == "__main__":
     app.run(debug=True)
