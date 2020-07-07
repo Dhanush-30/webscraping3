@@ -15,6 +15,6 @@ def submit():
     location=request.form['Location']
     output=scrap(field=field,Experience=experience,Location=location)
     
-    return render_template('index.html',prediction_text=output)
+    return output
 if __name__ == "__main__":
     app.run(debug=True)
