@@ -273,7 +273,7 @@ def scrap(field,Location,Experience):
 def home():
     return render_template('index.html')
 
-@app.route('/submit',methods=['GET','POST'])
+@app.route('/submit',methods=['POST'])
 def submit():
 
     field=request.form['Field']
