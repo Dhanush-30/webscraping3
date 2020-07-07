@@ -29,17 +29,7 @@ def scrap(field,Location,Experience):
 
     driver.get(url1)
     listoflinks=[]
-    for i in range(2,27):
-        n=driver.find_elements_by_tag_name("header")[i]
-        a=get_links(n)
-        listoflinks.append(a)
-        l=len(listoflinks)
-        if l==10:
-            break
-        else:
-            continue
-            
-
+    listoflinks=[get_links(driver.find_elements_by_tag_name("header")[i]) for i in range(2,12)]      
     alldetails=[]
     for link in listoflinks:
         driver.get(link)
@@ -55,8 +45,6 @@ def scrap(field,Location,Experience):
         alldetails.append(tempj)
 
     data=pd.DataFrame(alldetails)
-
-
     urln='https://www.naukri.com/'+field+'-jobs-in-'+Location+'?k='+field+'&l='+Location+'experience='+str(Experience)
     from selenium import webdriver
     driver.get(urln)
@@ -76,7 +64,6 @@ def scrap(field,Location,Experience):
     detnau=[]
     for link in listoflinksn:
         driver.get(link)
-        time.sleep(5)
         title=driver.find_element_by_tag_name('h1').text
         try:
             comp=driver.find_element_by_xpath('//*[@id="root"]/main/div[2]/div[2]/section[1]/div[1]/div[1]/div/a[1]').text
@@ -126,7 +113,6 @@ def scrap(field,Location,Experience):
     det=[]
     for link in listoflinksm:
         driver.get(link)
-        time.sleep(3)
         
         try:
             title=driver.find_element_by_xpath('//*[@id="jobDetailHolder"]/div/div/div[1]/div[2]/div[1]/div[1]/div/div[1]/div/div/div/h1').text
@@ -189,6 +175,7 @@ def scrap(field,Location,Experience):
     urls='https://www.shine.com/job-search/'+field+'-jobs-in-'+Location
     driver.get(urls)
     fieldar=driver.find_element_by_xpath('//*[@id="id_q"]')
+    time.sleep(3)
     driver.find_element_by_xpath('html/body/div[3]/div[1]/div[1]/div/div[1]/div[1]').click()
     fieldar.send_keys(field)
     fieldar.submit()
