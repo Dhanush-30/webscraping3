@@ -1,5 +1,6 @@
 import numpy as np
 from flask import Flask, request, jsonify, render_template
+from script import scrap
 app = Flask(__name__)
 
 @app.route('/')
