@@ -174,14 +174,16 @@ def scrap(field,Location,Experience):
 
     urls='https://www.shine.com/job-search/'+field+'-jobs-in-'+Location
     driver.get(urls)
-    fieldar=driver.find_element_by_xpath('//*[@id="id_q"]')
-    time.sleep(3)
     try:
-        driver.find_element_by_xpath('html/body/div[3]/div[1]/div[1]/div/div[1]/div[1]').click()
-        fieldar.send_keys(field)
-        fieldar.submit()
+        driver.find_element_by_xpath('//*[@id="push_noti_popup"]/div[1]/span').click()
     except:
         pass
+
+    fieldar=driver.find_element_by_xpath('//*[@id="id_q"]')
+    driver.find_element_by_xpath('html/body/div[3]/div[1]/div[1]/div/div[1]/div[1]').click()
+    fieldar.send_keys(field)
+    fieldar.submit()
+   
 
     k=driver.find_elements_by_tag_name('h3')
     shlinks=[]
@@ -221,7 +223,6 @@ def scrap(field,Location,Experience):
 
     driver.get(urlin)
     linkin=[]
-    driver.get(urlin)
 
     for i in range(1,11):
         k=driver.find_element_by_xpath('//*[@id="main-content"]/div/section/ul/li['+str(i)+']/a').get_property('href')
