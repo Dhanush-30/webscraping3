@@ -9,4 +9,3 @@ Werkzeug==0.15.5
 numpy>=1.16.2
 pandas>=0.25
 selenium==3.141
-urlib3==1.24.2
