@@ -176,9 +176,12 @@ def scrap(field,Location,Experience):
     driver.get(urls)
     fieldar=driver.find_element_by_xpath('//*[@id="id_q"]')
     time.sleep(3)
-    driver.find_element_by_xpath('html/body/div[3]/div[1]/div[1]/div/div[1]/div[1]').click()
-    fieldar.send_keys(field)
-    fieldar.submit()
+    try:
+        driver.find_element_by_xpath('html/body/div[3]/div[1]/div[1]/div/div[1]/div[1]').click()
+        fieldar.send_keys(field)
+        fieldar.submit()
+    except:
+        pass
 
     k=driver.find_elements_by_tag_name('h3')
     shlinks=[]
