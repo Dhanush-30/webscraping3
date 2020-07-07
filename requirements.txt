@@ -1,9 +1,4 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Tue Jul  7 14:44:29 2020
 
-@author: Dhanush
-"""
 
 Flask==1.1.1
 gunicorn==20.0.4
