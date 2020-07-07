@@ -27,7 +27,6 @@ def scrap(field,Location,Experience):
         link=mae.get_property('href')
         return link
 
-    driver = webdriver.Chrome(path)
     driver.get(url1)
     listoflinks=[]
     for i in range(2,27):
