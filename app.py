@@ -1,9 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Tue Jul  7 00:13:28 2020
-
-@author: Dhanush
-"""
 import numpy as np
 from flask import Flask, request, jsonify, render_template
 app = Flask(__name__)
