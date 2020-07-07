@@ -228,7 +228,7 @@ def scrap(field,Location,Experience):
             try:
                 k=driver.find_element_by_xpath('//*[@id="main-content"]/div/section/ul/li['+str(i)+']/a').get_property('href')
             except:
-                lin()
+                lin(field=field,Location=Location,Experience=Experience)
 
             linkin.append(k)
             if len(linkin)==10:
