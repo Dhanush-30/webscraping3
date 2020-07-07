@@ -216,21 +216,21 @@ def scrap(field,Location,Experience):
 
 
     # linkedin
-urlin='https://www.linkedin.com/jobs/search?keywords='+field+'&location='+Location+'&trk=public_jobs_jobs-search-bar_search-submit&redirect=false&position=1&pageNum=0'
+    urlin='https://www.linkedin.com/jobs/search?keywords='+field+'&location='+Location+'&trk=public_jobs_jobs-search-bar_search-submit&redirect=false&position=1&pageNum=0'
 
 
-driver.get(urlin)
-linkin=[]
-driver.get(urlin)
-
-for i in range(1,11):
-    k=driver.find_element_by_xpath('//*[@id="main-content"]/div/section/ul/li['+str(i)+']/a').get_property('href')
     driver.get(urlin)
-    linkin.append(k)
-    if len(linkin)==10:
-        break
-    else:
-        continue
+    linkin=[]
+    driver.get(urlin)
+
+    for i in range(1,11):
+        k=driver.find_element_by_xpath('//*[@id="main-content"]/div/section/ul/li['+str(i)+']/a').get_property('href')
+        driver.get(urlin)
+        linkin.append(k)
+        if len(linkin)==10:
+            break
+        else:
+            continue
 
     detlin=[]
     for link in linkin:
@@ -258,8 +258,6 @@ for i in range(1,11):
 
 
     tdata=pd.concat([data,datanau,data1,datain,datash,datalin])
-    
-
     return tdata
 
 @app.route('/')
