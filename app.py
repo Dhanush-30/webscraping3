@@ -278,9 +278,9 @@ def home():
 def submit():
 
     field=request.form['Field']
-    Experience=request.form['Experience']
-    Location=request.form['Location']
-    output=scrap(field,Experience,Location)
+    experience=request.form['Experience']
+    location=request.form['Location']
+    output=scrap(field=field,Experience=experience,Location=location)
     
     return render_template('index.html',prediction_text=output))
 if __name__ == "__main__":
