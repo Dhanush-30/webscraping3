@@ -114,11 +114,8 @@ def scrap(field,Location,Experience):
         try:
             company=driver.find_element_by_xpath('/html/body/div[1]/div[2]/div[3]/div/div/div[1]/div[1]/div[2]/div[2]/div').text
         except:
-            try:
-                company=driver.find_element_by_xpath('/html/body/div[1]/div[2]/div[3]/div/div/div[1]/div[1]/div[2]/div[4]/a/div/div/h4').text
-            except:
-                pass
-          
+            company=driver.find_element_by_xpath('/html/body/div[1]/div[2]/div[3]/div/div/div[1]/div[1]/div[2]/div[4]/a/div/div/h4').text
+                     
              
         tempj={'job_title':titlet,
               'company':company,
