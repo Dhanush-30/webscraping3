@@ -26,7 +26,7 @@ def scrap(field,Location,Experience):
 
     driver.get(url1)
     listoflinks=[]
-    listoflinks=[get_links(driver.find_elements_by_tag_name("header")[i]) for i in range(2,5)]      
+    listoflinks=[get_links(driver.find_elements_by_tag_name("header")[i]) for i in range(2,4)]      
     alldetails=[]
     for link in listoflinks:
         driver.get(link)
@@ -50,7 +50,7 @@ def scrap(field,Location,Experience):
         lik=ma.get_property('href')
         listoflinksn.append(lik)
         length=len(listoflinksn)
-        if length==3:
+        if length==2:
             break
         else:
             continue
