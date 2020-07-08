@@ -26,7 +26,7 @@ def scrap(field,Location,Experience):
 
     driver.get(url1)
     listoflinks=[]
-    listoflinks=[get_links(driver.find_elements_by_tag_name("header")[i]) for i in range(2,4)]      
+    listoflinks=[get_links(driver.find_elements_by_tag_name("header")[i]) for i in range(2,5)]      
     alldetails=[]
     for link in listoflinks:
         driver.get(link)
@@ -52,7 +52,7 @@ def scrap(field,Location,Experience):
         lik=ma.get_property('href')
         listoflinksn.append(lik)
         length=len(listoflinksn)
-        if length==2:
+        if length==3:
             break
         else:
             continue
@@ -79,50 +79,12 @@ def scrap(field,Location,Experience):
   
 
 
-    # In[7]:
-
-
-    # monster
+    
 
 
 
-    # In[8]:
 
 
-    # indeed
-
-    urli='https://www.indeed.co.in/jobs?q='+field+'&l='+Location
-
-    driver.get(urli)
-
-    ik=driver.find_elements_by_tag_name('h2')
-    inlinks=[]
-    for i in range(len(ik)):
-        link=ik[i].find_element_by_tag_name('a').get_property('href')
-        inlinks.append(link)
-        length=len(inlinks)
-        if length==2:
-            break
-        else:
-            continue
-
-    detin=[]
-    for link in inlinks:
-        driver.get(link)
-        title=driver.find_element_by_tag_name('h3')
-        titlet=title.text
-        try:
-            company=driver.find_element_by_xpath('/html/body/div[1]/div[2]/div[3]/div/div/div[1]/div[1]/div[2]/div[2]/div').text
-        except:
-            company=driver.find_element_by_xpath('/html/body/div[1]/div[2]/div[3]/div/div/div[1]/div[1]/div[2]/div[4]/a/div/div/h4').text
-                     
-             
-        tempj={'job_title':titlet,
-              'company':company,
-              'link for more details':link}
-        detin.append(tempj)
-
-    datain=pd.DataFrame(detin)
     
 
 
@@ -133,7 +95,7 @@ def scrap(field,Location,Experience):
   
 
 
-    tdata=pd.concat([data,datanau,datain])
+    tdata=pd.concat([data,datanau])
     return tdata.to_html(header=True)
 
 
