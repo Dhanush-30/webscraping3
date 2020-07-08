@@ -26,11 +26,10 @@ def scrap(field,Location,Experience):
 
     driver.get(url1)
     listoflinks=[]
-    listoflinks=[get_links(driver.find_elements_by_tag_name("header")[i]) for i in range(2,12)]      
+    listoflinks=[get_links(driver.find_elements_by_tag_name("header")[i]) for i in range(2,4)]      
     alldetails=[]
     for link in listoflinks:
         driver.get(link)
-        time.sleep(3)
         title=driver.find_element_by_xpath('//*[@id="job-detail-main-container"]/div[1]/div[2]/h1').text
         comp=driver.find_element_by_xpath('//*[@id="job-detail-main-container"]/div[1]/div[2]/h2').text
         
@@ -53,7 +52,7 @@ def scrap(field,Location,Experience):
         lik=ma.get_property('href')
         listoflinksn.append(lik)
         length=len(listoflinksn)
-        if length==10:
+        if length==2:
             break
         else:
             continue
@@ -99,7 +98,7 @@ def scrap(field,Location,Experience):
             ma=m.get_property('href')        
             listoflinksm.append(ma)
             length=len(listoflinksm)
-            if length==10:
+            if length==2:
                 break
             else:
                 continue
@@ -141,7 +140,7 @@ def scrap(field,Location,Experience):
         link=ik[i].find_element_by_tag_name('a').get_property('href')
         inlinks.append(link)
         length=len(inlinks)
-        if length==10:
+        if length==2:
             break
         else:
             continue
@@ -178,7 +177,7 @@ def scrap(field,Location,Experience):
     except:
         pass
     driver.get(urls)
-    time.sleep(3)
+    time.sleep(2)
     driver.find_element_by_xpath('html/body/div[3]/div[1]/div[1]/div/div[1]/div[1]').click()
     #/html/body/div[3]/div[1]/div[1]/div/div[1]/div[1]/div/ul
     fieldar=driver.find_element_by_xpath('//*[@id="id_q"]')
@@ -187,13 +186,13 @@ def scrap(field,Location,Experience):
 
     k=driver.find_elements_by_tag_name('h3')
     shlinks=[]
-    for i in range(1,20):
+    for i in range(2,15):
         try:
             k=driver.find_element_by_xpath('/html/body/div[3]/div[3]/div[1]/div/div[1]/div/div/div[1]/ul/li['+str(i)+']/div[2]/ul[1]/li/h3')
             link=k.find_element_by_tag_name('a').get_property('href')
             shlinks.append(link)
             length=len(shlinks)
-            if length==10:
+            if length==2:
                 break
             else:
                 continue
@@ -218,51 +217,40 @@ def scrap(field,Location,Experience):
 
 
     # linkedin
-    def lin(field,Location,Experience):
     
-        urlin='https://www.linkedin.com/jobs/search?keywords='+field+'&location='+Location+'&trk=public_jobs_jobs-search-bar_search-submit&redirect=false&position=1&pageNum=0'
+    urlin='https://www.linkedin.com/jobs/search?keywords='+field+'&location='+Location+'&trk=public_jobs_jobs-search-bar_search-submit&redirect=false&position=1&pageNum=0'
 
 
-        driver.get(urlin)
-        linkin=[]
+    driver.get(urlin)
+    linkin=[]
+    driver.get(urlin)
+
+    for i in range(2,5):
+        k=driver.find_element_by_xpath('//*[@id="main-content"]/div/section/ul/li['+str(i)+']/a').get_property('href')
+        linkin.append(k)
+       
+
+        if len(linkin)==2:
+            break
+        else:
+            continue
+
+    detlin=[]
+    for link in linkin:
+        driver.get(link)
+        title=driver.find_element_by_xpath('/html/body/main/section[1]/section[2]/div[1]/div[1]/h1').text
         try:
-            driver.find_element_by_xpath('//*[@id="main-content"]/div/section/ul/li[1]/a').get_property('href')
+            company=driver.find_element_by_xpath('/html/body/main/section[1]/section[2]/div[1]/div[1]/h3[1]/span[1]/a').text
         except:
-             lin(field=field,Location=Location,Experience=Experience)
+            company=driver.find_element_by_xpath('/html/body/main/section[1]/section[2]/div[1]/div[1]/h3[1]/span[1]').text
 
-
-        for i in range(1,11):
-            
-            try:
-                k=driver.find_element_by_xpath('//*[@id="main-content"]/div/section/ul/li['+str(i)+']/a').get_property('href')
-                linkin.append(k)
-                if len(linkin)==10:
-                    break
-                else:
-                    continue
-
-            except:
-                pass
-         
-
-        detlin=[]
-        for link in linkin:
-            driver.get(link)
-            title=driver.find_element_by_xpath('/html/body/main/section[1]/section[2]/div[1]/div[1]/h1').text
-            try:
-                company=driver.find_element_by_xpath('/html/body/main/section[1]/section[2]/div[1]/div[1]/h3[1]/span[1]/a').text
-            except:
-                company=driver.find_element_by_xpath('/html/body/main/section[1]/section[2]/div[1]/div[1]/h3[1]/span[1]').text
-
-            tempj={'job_title':title,
+        tempj={'job_title':title,
                   'company':company,
                   'link for more details':link}
-            detlin.append(tempj)
+        detlin.append(tempj)
 
 
-        datalin=pd.DataFrame(detlin)
-        return datalin
-    datalin=lin(field=field,Location=Location,Experience=Experience)
+    datalin=pd.DataFrame(detlin)
 
 
     # # total data
