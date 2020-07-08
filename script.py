@@ -35,12 +35,10 @@ def scrap(field,Location,Experience):
         
         tempj={'job_title':title,
                'company':comp,
-          'link for more details':link}
-         
-        
+          'link for more details':link}         
         alldetails.append(tempj)
-
     data=pd.DataFrame(alldetails)
+    ##
     urln='https://www.naukri.com/'+field+'-jobs-in-'+Location+'?k='+field+'&l='+Location+'experience='+str(Experience)
     from selenium import webdriver
     driver.get(urln)
@@ -64,37 +62,13 @@ def scrap(field,Location,Experience):
         try:
             comp=driver.find_element_by_xpath('//*[@id="root"]/main/div[2]/div[2]/section[1]/div[1]/div[1]/div/a[1]').text
         except:
-            pass
+            comp='NaN'
         
         tempj={'job_title':title,
                'company':comp,
                'link for more details':link}
-         
-        detnau.append(tempj)
-
-
- 
-
+        detnau.append(tempj) 
     datanau=pd.DataFrame(detnau)
-  
-
-
-    
-
-
-
-
-
-    
-
-
-
-    # In[64]:
-
-
-  
-
-
     tdata=pd.concat([data,datanau])
     return tdata.to_html(header=True)
 
