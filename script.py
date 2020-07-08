@@ -224,8 +224,13 @@ def scrap(field,Location,Experience):
     driver.get(urlin)
     linkin=[]
     driver.get(urlin)
+    try:
+        driver.find_element_by_xpath('//*[@id="main-content"]/div/section/ul/li[3]/a').get_property('href')
+    except:
+        driver.get(urlin)
+        
 
-    for i in range(2,5):
+    for i in range(2,8):
         k=driver.find_element_by_xpath('//*[@id="main-content"]/div/section/ul/li['+str(i)+']/a').get_property('href')
         linkin.append(k)
        
