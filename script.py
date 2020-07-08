@@ -47,7 +47,7 @@ def scrap(field,Location,Experience):
     for i in range(1,4):
         a=driver.find_element_by_xpath('/html/body/div[2]/div[4]/div[2]/section[2]/div[2]/article['+str(i)+']/div[1]/div[1]/a')
         title=a.text
-        company=driver.find_element_by_xpath('/html/body/div[2]/div[4]/div[2]/section[2]/div[2]/article['+str(i)+']/div[1]/div[1]/div').text
+        company=driver.find_element_by_xpath('/html/body/div[2]/div[4]/div[2]/section[2]/div[2]/article['+str(i)+']/div[1]/div[1]/div/a').text
         link=a.get_property('href')
         tempj={'job_title':title,
                'company':company,
