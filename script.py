@@ -39,36 +39,23 @@ def scrap(field,Location,Experience):
         alldetails.append(tempj)
     data=pd.DataFrame(alldetails)
     ##
-    urln='https://www.naukri.com/'+field+'-jobs-in-'+Location+'?k='+field+'&l='+Location+'experience='+str(Experience)
+    urln='https://www.naukri.com/'+field+'-jobs-in-'+Location+'?k='+field+'&l='+Location+'experience='+Experience
     from selenium import webdriver
     driver.get(urln)
-    listoflinksn=[]
-    l=driver.find_elements_by_class_name("jobTupleHeader")
-    for i in range(len(l)):    
-        m=driver.find_elements_by_class_name("jobTupleHeader")[i]
-        ma=m.find_elements_by_tag_name("a")[0]
-        lik=ma.get_property('href')
-        listoflinksn.append(lik)
-        length=len(listoflinksn)
-        if length==2:
-            break
-        else:
-            continue
-
+    time.sleep(2)
     detnau=[]
-    for link in listoflinksn:
-        driver.get(link)
-        title=driver.find_element_by_tag_name('h1').text
-        try:
-            comp=driver.find_element_by_xpath('//*[@id="root"]/main/div[2]/div[2]/section[1]/div[1]/div[1]/div/a[1]').text
-        except:
-            comp='NaN'
-        
+    for i in range(1,4):
+        a=driver.find_element_by_xpath('/html/body/div[2]/div[4]/div[2]/section[2]/div[2]/article['+str(i)+']/div[1]/div[1]/a')
+        title=a.text
+        company=driver.find_element_by_xpath('/html/body/div[2]/div[4]/div[2]/section[2]/div[2]/article['+str(i)+']/div[1]/div[1]/div').text
+        link=a.get_property('href')
         tempj={'job_title':title,
-               'company':comp,
+               'company':company,
                'link for more details':link}
-        detnau.append(tempj) 
-    datanau=pd.DataFrame(detnau)
+
+        detnau.append(tempj)
+
+    datanau=pd.DataFrame(detnau
     tdata=pd.concat([data,datanau])
     return tdata.to_html(header=True)
 
