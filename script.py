@@ -59,40 +59,50 @@ def scrap(field,Location,Experience):
 
 
     # linkedin
-    urlin='https://www.linkedin.com/jobs/search?keywords='+field+'&location='+Location+'&trk=public_jobs_jobs-search-bar_search-submit&redirect=false&position=1&pageNum=0'
-
-
-    driver.get(urlin)
-    linkin=[]
     try:
-        driver.find_element_by_xpath('//*[@id="main-content"]/div/section/ul/li['+str(i)+']/a').get_property('href')
-    except:
+        urlin='https://www.linkedin.com/jobs/search?keywords='+field+'&location='+Location+'&trk=public_jobs_jobs-search-bar_search-submit&redirect=false&position=1&pageNum=0'
+
+
         driver.get(urlin)
-    for i in range(2,15):
-        k=driver.find_element_by_xpath('//*[@id="main-content"]/div/section/ul/li['+str(i)+']/a').get_property('href')
-          
-        linkin.append(k)
-        if len(linkin)==3:
-            break
-        else:
-            continue
-
-    detlin=[]
-    for link in linkin:
-        driver.get(link)
-        title=driver.find_element_by_xpath('/html/body/main/section[1]/section[2]/div[1]/div[1]/h1').text
+        linkin=[]
         try:
-            company=driver.find_element_by_xpath('/html/body/main/section[1]/section[2]/div[1]/div[1]/h3[1]/span[1]/a').text
+            driver.find_element_by_xpath('//*[@id="main-content"]/div/section/ul/li['+str(i)+']/a').get_property('href')
         except:
-            company=driver.find_element_by_xpath('/html/body/main/section[1]/section[2]/div[1]/div[1]/h3[1]/span[1]').text
+            try:
+                driver.get(urlin)
+            except:
+                driver.get(urlin)
+        for i in range(2,15):
+            k=driver.find_element_by_xpath('//*[@id="main-content"]/div/section/ul/li['+str(i)+']/a').get_property('href')
 
-        tempj={'job_title':title,
-                'company':company,
-                'link for more details':link}
+            linkin.append(k)
+            if len(linkin)==3:
+                break
+            else:
+                continue
+
+        detlin=[]
+        for link in linkin:
+            driver.get(link)
+            title=driver.find_element_by_xpath('/html/body/main/section[1]/section[2]/div[1]/div[1]/h1').text
+            try:
+                company=driver.find_element_by_xpath('/html/body/main/section[1]/section[2]/div[1]/div[1]/h3[1]/span[1]/a').text
+            except:
+                company=driver.find_element_by_xpath('/html/body/main/section[1]/section[2]/div[1]/div[1]/h3[1]/span[1]').text
+
+            tempj={'job_title':title,
+                    'company':company,
+                    'link for more details':link}
+            detlin.append(tempj)
+
+
+    except:
+        tempj={'job_title':'Nan',
+                    'company':'Nan',
+                    'link for more details':'Nan'}
         detlin.append(tempj)
-
-
     datalin=pd.DataFrame(detlin)
+
 
 
     # # total data
