@@ -55,7 +55,7 @@ def scrap(field,Location,Experience):
 
         detnau.append(tempj)
 
-    datanau=pd.DataFrame(detnau
+    datanau=pd.DataFrame(detnau)
     tdata=pd.concat([data,datanau])
     return tdata.to_html(header=True)
 
