@@ -231,14 +231,15 @@ def scrap(field,Location,Experience):
         
 
     for i in range(2,8):
-        k=driver.find_element_by_xpath('//*[@id="main-content"]/div/section/ul/li['+str(i)+']/a').get_property('href')
-        linkin.append(k)
-       
-
-        if len(linkin)==2:
-            break
-        else:
-            continue
+        try:
+            k=driver.find_element_by_xpath('//*[@id="main-content"]/div/section/ul/li['+str(i)+']/a').get_property('href')
+            linkin.append(k)
+            if len(linkin)==2:
+                break
+            else:
+                continue
+        except:
+            pass
 
     detlin=[]
     for link in linkin:
