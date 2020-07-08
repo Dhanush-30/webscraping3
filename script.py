@@ -169,14 +169,18 @@ def scrap(field,Location,Experience):
     # In[64]:
 
 
+  
+
     urls='https://www.shine.com/job-search/'+field+'-jobs-in-'+Location
     driver.get(urls)
     try:
         driver.find_element_by_xpath('//*[@id="push_noti_popup"]/div[1]/span').click()
     except:
         pass
-    driver.find_element_by_xpath('/html/body/div[3]/div[3]/div[1]/div/div[2]/div[1]/div/div[2]/ul/a[3]/li').click()
+    driver.get(urls)
+    time.sleep(3)
     driver.find_element_by_xpath('html/body/div[3]/div[1]/div[1]/div/div[1]/div[1]').click()
+    #/html/body/div[3]/div[1]/div[1]/div/div[1]/div[1]/div/ul
     fieldar=driver.find_element_by_xpath('//*[@id="id_q"]')
     fieldar.send_keys(field)
     fieldar.submit()
@@ -221,17 +225,25 @@ def scrap(field,Location,Experience):
 
         driver.get(urlin)
         linkin=[]
+        try:
+            driver.find_element_by_xpath('//*[@id="main-content"]/div/section/ul/li[1]/a').get_property('href')
+        except:
+             lin(field=field,Location=Location,Experience=Experience)
+
+
         for i in range(1,11):
+            
             try:
                 k=driver.find_element_by_xpath('//*[@id="main-content"]/div/section/ul/li['+str(i)+']/a').get_property('href')
-            except:
-                lin(field=field,Location=Location,Experience=Experience)
+                linkin.append(k)
+                if len(linkin)==10:
+                    break
+                else:
+                    continue
 
-            linkin.append(k)
-            if len(linkin)==10:
-                break
-            else:
-                continue
+            except:
+                pass
+         
 
         detlin=[]
         for link in linkin:
@@ -259,4 +271,6 @@ def scrap(field,Location,Experience):
 
 
     tdata=pd.concat([data,datanau,data1,datain,datash,datalin])
-    return tdata
+    return tdata.to_html(header=True)
+
+
