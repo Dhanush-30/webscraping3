@@ -57,9 +57,10 @@ def scrap(field,Location,Experience):
 
     # In[14]:
 
-
-    # linkedin
+    detlin=[]
     try:
+    # linkedin
+    
         urlin='https://www.linkedin.com/jobs/search?keywords='+field+'&location='+Location+'&trk=public_jobs_jobs-search-bar_search-submit&redirect=false&position=1&pageNum=0'
 
 
@@ -81,7 +82,7 @@ def scrap(field,Location,Experience):
             else:
                 continue
 
-        detlin=[]
+        
         for link in linkin:
             driver.get(link)
             title=driver.find_element_by_xpath('/html/body/main/section[1]/section[2]/div[1]/div[1]/h1').text
@@ -100,7 +101,8 @@ def scrap(field,Location,Experience):
         tempj={'job_title':'Nan',
                     'company':'Nan',
                     'link for more details':'Nan'}
-        detlin.append(tempj)
+   
+    detlin.append(tempj)
     datalin=pd.DataFrame(detlin)
 
 
