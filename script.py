@@ -112,9 +112,14 @@ def scrap(field,Location,Experience):
         title=driver.find_element_by_tag_name('h3')
         titlet=title.text
         try:
-            company=driver.find_element_by_xpath('/html/body/div[1]/div[2]/div[3]/div/div/div[1]/div[1]/div[2]/div[2]/div/div/div').text
+            company=driver.find_element_by_xpath('/html/body/div[1]/div[2]/div[3]/div/div/div[1]/div[1]/div[2]/div[2]/div').text
         except:
-            company=driver.find_element_by_xpath('/html/body/div[1]/div[2]/div[3]/div/div/div[1]/div[1]/div[2]/div[4]/a/div/div/h4').text    
+            try:
+                company=driver.find_element_by_xpath('/html/body/div[1]/div[2]/div[3]/div/div/div[1]/div[1]/div[2]/div[4]/a/div/div/h4').text
+            except:
+                pass
+          
+             
         tempj={'job_title':titlet,
               'company':company,
               'link for more details':link}
@@ -124,7 +129,6 @@ def scrap(field,Location,Experience):
     
 
 
-    # # shine
 
     # In[64]:
 
